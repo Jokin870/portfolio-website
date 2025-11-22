@@ -5,6 +5,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #222;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -46,4 +49,103 @@ a {
 }
 
 a:hover {
-    color: #0
+    color: #0c47b7;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #072a7a;
+}
+
+button {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    margin: 0.3rem 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0c47b7;
+}
+
+button:active {
+    background-color: #072a7a;
+}
+
+/* ------------------------------
+   SPACING & SURFACES
+-------------------------------- */
+.content-block {
+    background-color: #fff;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* ------------------------------
+   NAVBAR (component 1)
+-------------------------------- */
+#navbar {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background-color: #333;
+    color: #fff;
+    align-items: center;
+}
+
+#navbar a {
+    color: #fff;
+    font-weight: 600;
+}
+
+#navbar a:hover {
+    color: #1a73e8;
+}
+
+#navbar button#contact-btn {
+    margin-left: auto;
+}
+
+/* ------------------------------
+   BADGES (component 2)
+-------------------------------- */
+.badge {
+    display: inline-block;
+    background-color: #1a73e8;
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* ------------------------------
+   SECTION STYLING
+-------------------------------- */
+section {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#about img,
+.resume-item img,
+.portfolio-item img {
+    display: block;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.portfolio-item a {
+    margin-right: 0.5rem;
+}
