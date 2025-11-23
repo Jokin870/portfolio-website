@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="assets/css/custom.css?v=5">
 </head>
 
-<body>
+<body class="loading">
 
     <!-- ===== LOADER (CSS ONLY) ===== -->
     <div id="loader">
@@ -49,6 +49,7 @@
                     collaborating with teams to achieve professional excellence. I value problem-solving, creativity, and 
                     continuous improvement in all projects I undertake.
                 </p>
+                <button class="button">Contact Me</button>
             </section>
 
             <!-- RESUME -->
@@ -84,16 +85,19 @@
                 <div class="portfolio-item content-block">
                     <img src="assets/img/foto1.png" alt="Personal website project" width="300">
                     <p>Project 1: Personal website showcasing skills and projects.</p>
+                    <button class="button">View Project</button>
                 </div>
 
                 <div class="portfolio-item content-block">
                     <img src="assets/img/foto2.jpg" alt="Responsive landing page" width="300">
                     <p>Project 2: Responsive landing page for a local business.</p>
+                    <button class="button">View Project</button>
                 </div>
 
                 <div class="portfolio-item content-block">
                     <img src="assets/img/foto3.jpeg" alt="Freelance portfolio page" width="300">
                     <p>Project 3: Portfolio page for freelance work.</p>
+                    <button class="button">View Project</button>
                 </div>
             </section>
 
@@ -106,11 +110,22 @@
 
     </div>
 
+    <!-- ===== BACK TO TOP ===== -->
+    <div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'});">&#8679;</div>
+
     <!-- ===== LOADER SCRIPT ===== -->
     <script>
         window.addEventListener("load", () => {
             document.getElementById("loader").style.display = "none";
             document.getElementById("page-content").classList.remove("hidden");
+            document.body.classList.remove("loading");
+
+            // Mostrar el botón back-to-top cuando se scrollea
+            const backToTop = document.getElementById("back-to-top");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) backToTop.style.display = "block";
+                else backToTop.style.display = "none";
+            });
         });
     </script>
 
