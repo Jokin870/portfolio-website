@@ -20,10 +20,9 @@ h1, h2, h3 {
   line-height: 1.2;
 }
 
-h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
+h1 { font-size: 3rem; margin-bottom: 1rem; }
+h2 { font-size: 2rem; margin-bottom: 1rem; }
+h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
 
 /* Paragraphs */
 p {
@@ -32,16 +31,16 @@ p {
 }
 
 /* ---------------------------
-   GLOBAL SPACING + SURFACES
+   GLOBAL SPACING & SURFACES
 ---------------------------- */
 section {
-  padding: 60px 20px;
+  padding: 3rem 1.25rem; /* spacing scale aplicado */
 }
 
 .content-block {
   background: #fff;
   border-radius: 12px;
-  padding: 25px;
+  padding: 1.5rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -57,7 +56,7 @@ section {
 a {
   color: #0057ff;
   text-decoration: none;
-  transition: 0.2s;
+  transition: color 0.2s;
 }
 
 a:hover {
@@ -68,11 +67,27 @@ a:active {
   color: #001e66;
 }
 
+button {
+  background: #0057ff;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+  background: #003bbb;
+  animation: softPulse 0.6s ease;
+}
+
 /* ---------------------------
    PORTFOLIO GRID
 ---------------------------- */
 .portfolio-item {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
   max-width: 350px;
 }
 
@@ -87,15 +102,35 @@ a:active {
 }
 
 /* ---------------------------
-   CUSTOM COMPONENT RESTYLING
+   CUSTOM COMPONENTS
 ---------------------------- */
 
 /* NAVBAR */
 nav {
   background: #ffffffcc;
   backdrop-filter: blur(6px);
-  padding: 15px;
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid #ddd;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #222;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #0057ff;
+  text-decoration: underline;
 }
 
 /* BACK TO TOP */
@@ -121,7 +156,7 @@ nav {
    CSS ANIMATIONS
 ---------------------------- */
 
-/* 1) Fade-in on scroll */
+/* 1) Fade-in sections */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -133,15 +168,9 @@ nav {
   }
 }
 
-section {
+.fade-in {
+  opacity: 0;
   animation: fadeInUp 0.8s ease forwards;
-}
-
-/* Accessibility: reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  section {
-    animation: none;
-  }
 }
 
 /* 2) Button pulse */
@@ -151,8 +180,13 @@ section {
   100% { transform: scale(1); }
 }
 
-button:hover {
-  animation: softPulse 0.6s ease;
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  button,
+  .spinner {
+    animation: none !important;
+  }
 }
 
 /* ---------------------------
@@ -181,8 +215,6 @@ button:hover {
   to { transform: rotate(360deg); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .spinner {
-    animation: none;
-  }
+body.loading {
+  overflow: hidden;
 }
