@@ -1,151 +1,188 @@
-/* ------------------------------
-   TYPOGRAPHY SYSTEM
--------------------------------- */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #222;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
+/* ---------------------------
+   GENERAL TYPOGRAPHY
+---------------------------- */
+html {
+  scroll-behavior: smooth;
 }
 
-h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background: #fafafa;
+  margin: 0;
+}
+
+/* TITLES */
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 h2 {
-    font-size: 2.2rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.8rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-h3 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    margin-bottom: 0.6rem;
-}
-
+/* Paragraphs */
 p {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.8;
-    letter-spacing: 0.2px;
-    margin-bottom: 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* ------------------------------
-   INTERACTIVE ELEMENTS
--------------------------------- */
+/* ---------------------------
+   GLOBAL SPACING + SURFACES
+---------------------------- */
+section {
+  padding: 60px 20px;
+}
+
+.content-block {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* ---------------------------
+   LINKS & BUTTONS
+---------------------------- */
 a {
-    color: #1a73e8;
-    text-decoration: none;
-    transition: all 0.3s ease;
+  color: #0057ff;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 a:hover {
-    color: #0c47b7;
-    text-decoration: underline;
+  color: #003bbb;
 }
 
 a:active {
-    color: #072a7a;
+  color: #001e66;
 }
 
-button {
-    background-color: #1a73e8;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    margin: 0.3rem 0;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
+/* ---------------------------
+   PORTFOLIO GRID
+---------------------------- */
+.portfolio-item {
+  margin-bottom: 30px;
+  max-width: 350px;
+}
+
+.portfolio-item img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.25s ease;
+}
+
+.portfolio-item img:hover {
+  transform: scale(1.03);
+}
+
+/* ---------------------------
+   CUSTOM COMPONENT RESTYLING
+---------------------------- */
+
+/* NAVBAR */
+nav {
+  background: #ffffffcc;
+  backdrop-filter: blur(6px);
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* BACK TO TOP */
+#back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #0057ff;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  transition: background 0.2s;
+}
+
+#back-to-top:hover {
+  background: #003bbb;
+}
+
+/* ---------------------------
+   CSS ANIMATIONS
+---------------------------- */
+
+/* 1) Fade-in on scroll */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  section {
+    animation: none;
+  }
+}
+
+/* 2) Button pulse */
+@keyframes softPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
 
 button:hover {
-    background-color: #0c47b7;
+  animation: softPulse 0.6s ease;
 }
 
-button:active {
-    background-color: #072a7a;
+/* ---------------------------
+   LOADER
+---------------------------- */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
-/* ------------------------------
-   SPACING & SURFACES
--------------------------------- */
-.content-block {
-    background-color: #fff;
-    padding: 1rem 1.5rem;
-    margin: 1rem 0;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #0057ff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
 }
 
-/* ------------------------------
-   NAVBAR (component 1)
--------------------------------- */
-#navbar {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem 2rem;
-    background-color: #333;
-    color: #fff;
-    align-items: center;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-#navbar a {
-    color: #fff;
-    font-weight: 600;
-}
-
-#navbar a:hover {
-    color: #1a73e8;
-}
-
-#navbar button#contact-btn {
-    margin-left: auto;
-}
-
-/* ------------------------------
-   BADGES (component 2)
--------------------------------- */
-.badge {
-    display: inline-block;
-    background-color: #1a73e8;
-    color: #fff;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-right: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-/* ------------------------------
-   SECTION STYLING
--------------------------------- */
-section {
-    padding: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-#about img,
-.resume-item img,
-.portfolio-item img {
-    display: block;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-}
-
-.portfolio-item a {
-    margin-right: 0.5rem;
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
 }
