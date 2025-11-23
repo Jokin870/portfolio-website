@@ -1,122 +1,118 @@
 <!DOCTYPE html>
 <!-- Created by: Jokin Barandiaran -->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jokin Barandiaran - Portfolio</title>
-    <!-- CSS original -->
+    <title>Jokin Barandiaran – Portfolio</title>
+
+    <!-- Main stylesheet (template original) -->
     <link rel="stylesheet" href="assets/css/main.css">
-    <!-- CSS personalizado -->
-    <link rel="stylesheet" href="assets/css/custom.css?v=2">
+
+    <!-- Custom stylesheet with all modifications -->
+    <link rel="stylesheet" href="assets/css/custom.css?v=3">
 </head>
+
 <body>
 
-    <!-- Navbar (componente restyleado) -->
-    <nav id="navbar">
-        <a href="#about">About</a>
-        <a href="#resume">Resume</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#services">Services</a>
-        <button id="contact-btn">Contact</button>
-    </nav>
+    <!-- ===== LOADER (CSS ONLY) ===== -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
 
-    <!-- About Section -->
-    <section id="about">
-        <h1>About Me</h1>
-        <img src="assets/img/about-me.jpg" alt="Jokin Barandiaran" width="200" height="200">
-        <p>
-            I am Jokin Barandiaran, a dedicated and passionate learner in web development and digital technologies. 
-            I enjoy creating practical solutions through coding and design, constantly exploring new tools and frameworks 
-            to enhance my skills. My goal is to develop efficient and visually appealing websites while collaborating with 
-            teams to achieve professional excellence. I value problem-solving, creativity, and continuous improvement 
-            in all projects I undertake, ensuring quality and attention to detail in every task.
-        </p>
-        <!-- Example badges -->
-        <span class="badge">Web Developer</span>
-        <span class="badge">Freelancer</span>
-    </section>
+    <!-- WRAPPER (hidden until loader finishes) -->
+    <div id="page-content" class="hidden">
 
-    <!-- Resume Section -->
-    <section id="resume">
-        <h2>Resume</h2>
+        <!-- ===== HEADER ===== -->
+        <header>
+            <nav id="navbar">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <div class="content-block resume-item">
-            <img src="assets/img/logo-university.jpg" alt="University logo" width="100" height="100">
-            <h3>Bachelor's Degree in Computer Science</h3>
-            <h4>2018 - 2022</h4>
-            <p>Studied programming, algorithms, and software engineering, developing projects in various technologies.</p>
-        </div>
+        <!-- ===== MAIN ===== -->
+        <main>
 
-        <div class="content-block resume-item">
-            <img src="assets/img/logo-internship.jpg" alt="Internship logo" width="100" height="100">
-            <h3>Web Development Internship</h3>
-            <h4>2022 - 2023</h4>
-            <p>Worked on front-end projects using HTML, CSS, and JavaScript, creating responsive web designs.</p>
-        </div>
+            <!-- ABOUT -->
+            <section id="about" class="fade-in">
+                <h2>About Me</h2>
+                <img src="assets/img/about-me.jpg" alt="Jokin Barandiaran" width="200">
+                <p>
+                    I am Jokin Barandiaran, a dedicated and passionate learner in web development and digital technologies.
+                    I enjoy creating practical solutions through coding and design, constantly exploring new tools and 
+                    frameworks to enhance my skills. My goal is to develop efficient and visually appealing websites while 
+                    collaborating with teams to achieve professional excellence. I value problem-solving, creativity, and 
+                    continuous improvement in all projects I undertake.
+                </p>
+            </section>
 
-        <div class="content-block resume-item">
-            <img src="assets/img/logo-freelance.jpg" alt="Freelance logo" width="100" height="100">
-            <h3>Freelance Projects</h3>
-            <h4>2023 - Present</h4>
-            <p>Developed small websites and portfolio pages for clients, focusing on clean design and usability.</p>
-        </div>
+            <!-- RESUME -->
+            <section id="resume" class="fade-in">
+                <h2>Resume</h2>
 
-    </section>
+                <div class="resume-item content-block">
+                    <img src="assets/img/logo-university.jpg" alt="University logo" width="100">
+                    <h4>Bachelor's Degree in Computer Science</h4>
+                    <h5>2018 - 2022</h5>
+                    <p>Studied programming, algorithms, and software engineering.</p>
+                </div>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio">
-        <h2>Portfolio</h2>
+                <div class="resume-item content-block">
+                    <img src="assets/img/logo-internship.jpg" alt="Internship logo" width="100">
+                    <h4>Web Development Internship</h4>
+                    <h5>2022 - 2023</h5>
+                    <p>Worked on front-end projects using HTML, CSS, and JavaScript.</p>
+                </div>
 
-        <div class="content-block portfolio-item">
-            <img src="assets/img/foto1.png" alt="Personal website project" width="300" height="200">
-            <p>Project 1: Personal website showcasing skills and projects.</p>
-            <a href="#">View Project</a>
-            <button>Details</button>
-        </div>
+                <div class="resume-item content-block">
+                    <img src="assets/img/logo-freelance.jpg" alt="Freelance logo" width="100">
+                    <h4>Freelance Projects</h4>
+                    <h5>2023 - Present</h5>
+                    <p>Developed websites and portfolio pages for clients.</p>
+                </div>
+            </section>
 
-        <div class="content-block portfolio-item">
-            <img src="assets/img/foto2.jpg" alt="Responsive landing page" width="300" height="200">
-            <p>Project 2: Responsive landing page for a local business.</p>
-            <a href="#">View Project</a>
-            <button>Details</button>
-        </div>
+            <!-- PORTFOLIO -->
+            <section id="portfolio" class="fade-in">
+                <h2>Portfolio</h2>
 
-        <div class="content-block portfolio-item">
-            <img src="assets/img/foto3.jpeg" alt="Freelance portfolio page" width="300" height="200">
-            <p>Project 3: Portfolio page for freelance work.</p>
-            <a href="#">View Project</a>
-            <button>Details</button>
-        </div>
+                <div class="portfolio-item content-block">
+                    <img src="assets/img/foto1.png" alt="Personal website project" width="300">
+                    <p>Project 1: Personal website showcasing skills and projects.</p>
+                </div>
 
-    </section>
+                <div class="portfolio-item content-block">
+                    <img src="assets/img/foto2.jpg" alt="Responsive landing page" width="300">
+                    <p>Project 2: Responsive landing page for a local business.</p>
+                </div>
 
-    <!-- Services Section (para videos y audio) -->
-    <section id="services">
-        <h2>Services</h2>
-        <div class="content-block">
-            <h3>Local Video</h3>
-            <video width="320" height="240" controls>
-                <source src="assets/media/sample-video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+                <div class="portfolio-item content-block">
+                    <img src="assets/img/foto3.jpeg" alt="Freelance portfolio page" width="300">
+                    <p>Project 3: Portfolio page for freelance work.</p>
+                </div>
+            </section>
 
-        <div class="content-block">
-            <h3>YouTube Video</h3>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        </main>
 
-        <div class="content-block">
-            <h3>Audio Recording</h3>
-            <audio controls>
-                <source src="assets/media/sample-audio.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-    </section>
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <p>© 2025 Jokin Barandiaran</p>
+        </footer>
 
-    <script src="assets/js/main.js"></script>
+    </div>
+
+    <!-- Script to hide loader -->
+    <script>
+        window.addEventListener("load", () => {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("page-content").classList.remove("hidden");
+        });
+    </script>
+
 </body>
 </html>
