@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <!-- Custom stylesheet with all modifications -->
-    <link rel="stylesheet" href="assets/css/custom.css?v=6">
+    <link rel="stylesheet" href="assets/css/custom.css?v=7">
 </head>
 
 <body class="loading">
@@ -32,6 +32,7 @@
                     <li><a href="#resume">Resume</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="#thermometer">Thermometer</a></li>
                     <li><a href="#memory-game">Memory Game</a></li>
                 </ul>
             </nav>
@@ -103,6 +104,22 @@
                 </div>
             </section>
 
+            <!-- SMART THERMOMETER -->
+            <section id="thermometer" class="fade-in">
+                <h2>Smart Thermometer</h2>
+
+                <div class="thermo-container content-block">
+                    <label for="tempRange">Set Temperature (°C):</label>
+                    <input type="range" id="tempRange" min="-10" max="40" value="20">
+                    
+                    <div id="tempValue">20°C</div>
+                    <div id="tempStatus">Status: Normal 🌤️</div>
+                </div>
+
+                <button id="checkTempBtn" class="button">Check Temperature</button>
+                <div id="thermoResult" class="result-display"></div>
+            </section>
+
             <!-- CONTACT FORM -->
             <section id="contact" class="fade-in">
                 <h2>Contact</h2>
@@ -145,7 +162,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="button">Submit</button>
+                        <button type="submit" id="submitFormBtn" class="button">Submit</button>
                     </div>
 
                 </form>
@@ -153,29 +170,28 @@
                 <div id="formResults" class="form-results"></div>
             </section>
 
-            <!-- MEMORY GAME -->
+            <!-- MEMORY GAME (dinámico con JS, sin conflictos de IDs) -->
             <section id="memory-game" class="fade-in">
                 <h2>Memory Game</h2>
 
                 <div class="game-controls">
-                    <label for="difficulty">Select difficulty:</label>
-                    <select id="difficulty">
+                    <label>Difficulty:</label>
+                    <select id="gameDifficulty">
                         <option value="easy">Easy (4×3)</option>
                         <option value="hard">Hard (6×4)</option>
                     </select>
 
-                    <button id="startBtn" class="button">Start</button>
-                    <button id="restartBtn" class="button">Restart</button>
+                    <button id="gameStartBtn" class="button">Start</button>
+                    <button id="gameRestartBtn" class="button">Restart</button>
                 </div>
 
                 <div class="stats-panel">
-                    <p>Moves: <span id="moves">0</span></p>
-                    <p>Matches: <span id="matches">0</span></p>
+                    <p>Moves: <span id="gameMoves">0</span></p>
+                    <p>Matches: <span id="gameMatches">0</span></p>
                 </div>
 
                 <div id="gameBoard" class="game-board"></div>
-
-                <div id="winMessage" class="win-message"></div>
+                <div id="gameWinMessage" class="win-message"></div>
             </section>
 
         </main>
