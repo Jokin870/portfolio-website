@@ -3,6 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const results = document.getElementById("formResults");
 
+  const rating1 = document.getElementById("rating1");
+  const rating2 = document.getElementById("rating2");
+  const rating3 = document.getElementById("rating3");
+  const rating1Val = document.getElementById("rating1Val");
+  const rating2Val = document.getElementById("rating2Val");
+  const rating3Val = document.getElementById("rating3Val");
+
+  // Update rating display
+  [ [rating1, rating1Val], [rating2, rating2Val], [rating3, rating3Val] ].forEach(([slider, display]) => {
+    slider.addEventListener("input", () => display.textContent = slider.value);
+  });
+
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -13,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
         address: document.getElementById("address").value,
-        rating1: Number(document.getElementById("rating1").value),
-        rating2: Number(document.getElementById("rating2").value),
-        rating3: Number(document.getElementById("rating3").value)
+        rating1: Number(rating1.value),
+        rating2: Number(rating2.value),
+        rating3: Number(rating3.value)
       };
 
       console.log("✅ Form Data:", data);
@@ -151,4 +163,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   resetGame(); // initialize board on page load
+
+  // -------- SMART THERMOMETER --------
+  const tempSlider = document.getElementById("tempSlider");
+  const tempDisplay = document.getElementById("tempDisplay");
+  const tempResult = document.getElementById("tempResult");
+
+  tempSlider.addEventListener("input", () => {
+    const temp = tempSlider.value;
+    tempDisplay.textContent = temp + "°C";
+
+    let state = "";
+    if(temp < 0) state = "Freezing ❄️";
+    else if(temp <= 14) state = "Cold 🥶";
+    else if(temp <= 24) state = "Comfortable 😌";
+    else if(temp <= 34) state = "Warm 🌞";
+    else state = "Hot 🔥";
+
+    tempResult.textContent = state;
+  });
+
 });
