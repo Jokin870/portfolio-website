@@ -1,13 +1,16 @@
-// Contact form handler
 document.addEventListener("DOMContentLoaded", () => {
-  const contactForm = document.getElementById("contactForm");
-  const resultsDiv = document.getElementById("formResults");
+  const form = document.getElementById("contactForm");
+  const results = document.getElementById("formResults");
 
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // Prevent reload
+  if (!form) {
+    console.error("❌ Form with ID 'contactForm' not found");
+    return;
+  }
 
-    // Collect values
-    const formData = {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const data = {
       name: document.getElementById("name").value,
       surname: document.getElementById("surname").value,
       email: document.getElementById("email").value,
@@ -18,44 +21,40 @@ document.addEventListener("DOMContentLoaded", () => {
       rating3: Number(document.getElementById("rating3").value)
     };
 
-    // Print to console
-    console.log(formData);
+    console.log("✅ Form Data:", data);
 
-    // Display results below form
-    resultsDiv.innerHTML = `
-Name: ${formData.name}<br>
-Surname: ${formData.surname}<br>
-Email: ${formData.email}<br>
-Phone number: ${formData.phone}<br>
-Address: ${formData.address}<br>
-`;
+    let output = "";
+    Object.keys(data).forEach(key => {
+      if (!key.includes("rating")) {
+        const label = key === "phone" ? "Phone number" : key.charAt(0).toUpperCase() + key.slice(1);
+        output += `${label}: ${data[key]}\n`;
+      }
+    });
 
-    // Calculate average rating
-    const avg = ((formData.rating1 + formData.rating2 + formData.rating3) / 3).toFixed(1);
+    const avg = ((data.rating1 + data.rating2 + data.rating3) / 3).toFixed(1);
 
-    // Determine color
-    let color = "red";
+    let color;
+    if (avg >= 0 && avg < 4) color = "red";
     if (avg >= 4 && avg < 7) color = "orange";
-    if (avg >= 7) color = "green";
+    if (avg >= 7 && avg <= 10) color = "green";
 
-    // Display average with color + format
-    resultsDiv.innerHTML += `<strong>${formData.name} ${formData.surname}: <span id="ratingAvg" style="color:${color}">${avg}</span></strong>`;
+    output += `${data.name} ${data.surname}: `;
+    results.textContent = output;
+    results.innerHTML += `<span id="ratingAvg" style="color:${color}; font-weight:bold;">${avg}</span>`;
 
-    // Show success popup
     showPopup("Form submitted successfully!");
   });
 });
 
-// Success popup function
-function showPopup(message) {
-  const popup = document.createElement("div");
-  popup.className = "custom-popup";
-  popup.textContent = message;
-  document.body.appendChild(popup);
+function showPopup(msg) {
+  const p = document.createElement("div");
+  p.className = "custom-popup";
+  p.textContent = msg;
+  document.body.appendChild(p);
 
-  setTimeout(() => popup.classList.add("show"), 50);
+  setTimeout(() => p.classList.add("show"), 50);
   setTimeout(() => {
-    popup.classList.remove("show");
-    setTimeout(() => popup.remove(), 300);
+    p.classList.remove("show");
+    setTimeout(() => p.remove(), 300);
   }, 3000);
 }
