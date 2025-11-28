@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <!-- Custom stylesheet with all modifications -->
-    <link rel="stylesheet" href="assets/css/custom.css?v=5">
+    <link rel="stylesheet" href="assets/css/custom.css?v=6">
 </head>
 
 <body class="loading">
@@ -32,6 +32,7 @@
                     <li><a href="#resume">Resume</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="#memory-game">Memory Game</a></li>
                 </ul>
             </nav>
         </header>
@@ -152,6 +153,31 @@
                 <div id="formResults" class="form-results"></div>
             </section>
 
+            <!-- MEMORY GAME -->
+            <section id="memory-game" class="fade-in">
+                <h2>Memory Game</h2>
+
+                <div class="game-controls">
+                    <label for="difficulty">Select difficulty:</label>
+                    <select id="difficulty">
+                        <option value="easy">Easy (4×3)</option>
+                        <option value="hard">Hard (6×4)</option>
+                    </select>
+
+                    <button id="startBtn" class="button">Start</button>
+                    <button id="restartBtn" class="button">Restart</button>
+                </div>
+
+                <div class="stats-panel">
+                    <p>Moves: <span id="moves">0</span></p>
+                    <p>Matches: <span id="matches">0</span></p>
+                </div>
+
+                <div id="gameBoard" class="game-board"></div>
+
+                <div id="winMessage" class="win-message"></div>
+            </section>
+
         </main>
 
         <!-- ===== FOOTER ===== -->
@@ -164,7 +190,7 @@
     <!-- ===== BACK TO TOP ===== -->
     <div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'});">&#8679;</div>
 
-    <!-- ===== LOADER SCRIPT CORREGIDO ===== -->
+    <!-- ===== LOADER SCRIPT ===== -->
     <script>
         window.addEventListener("load", () => {
             const loader = document.getElementById("loader");
