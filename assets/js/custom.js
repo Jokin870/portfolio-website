@@ -1,60 +1,154 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // -------- CONTACT FORM --------
   const form = document.getElementById("contactForm");
   const results = document.getElementById("formResults");
 
-  if (!form) {
-    console.error("❌ Form with ID 'contactForm' not found");
-    return;
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        surname: document.getElementById("surname").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        rating1: Number(document.getElementById("rating1").value),
+        rating2: Number(document.getElementById("rating2").value),
+        rating3: Number(document.getElementById("rating3").value)
+      };
+
+      console.log("✅ Form Data:", data);
+
+      let output = "";
+      Object.keys(data).forEach(key => {
+        if (!key.includes("rating")) {
+          const label = key === "phone" ? "Phone number" : key.charAt(0).toUpperCase() + key.slice(1);
+          output += `${label}: ${data[key]}\n`;
+        }
+      });
+
+      const avg = ((data.rating1 + data.rating2 + data.rating3) / 3).toFixed(1);
+
+      let color;
+      if (avg >= 0 && avg < 4) color = "red";
+      if (avg >= 4 && avg < 7) color = "orange";
+      if (avg >= 7 && avg <= 10) color = "green";
+
+      output += `${data.name} ${data.surname}: `;
+      results.textContent = output;
+      results.innerHTML += `<span style="color:${color}; font-weight:bold;">${avg}</span>`;
+
+      showPopup("Form submitted successfully!");
+    });
   }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  function showPopup(msg) {
+    const p = document.createElement("div");
+    p.className = "custom-popup";
+    p.textContent = msg;
+    document.body.appendChild(p);
 
-    const data = {
-      name: document.getElementById("name").value,
-      surname: document.getElementById("surname").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      address: document.getElementById("address").value,
-      rating1: Number(document.getElementById("rating1").value),
-      rating2: Number(document.getElementById("rating2").value),
-      rating3: Number(document.getElementById("rating3").value)
-    };
+    setTimeout(() => p.classList.add("show"), 50);
+    setTimeout(() => {
+      p.classList.remove("show");
+      setTimeout(() => p.remove(), 300);
+    }, 3000);
+  }
 
-    console.log("✅ Form Data:", data);
+  // -------- MEMORY GAME --------
+  const emojis = ["🐶","🐱","🦊","🐼","🐸","🐵"];
+  let difficulty = "easy";
+  let moves = 0;
+  let matches = 0;
+  let flippedCards = [];
+  let lockBoard = false;
 
-    let output = "";
-    Object.keys(data).forEach(key => {
-      if (!key.includes("rating")) {
-        const label = key === "phone" ? "Phone number" : key.charAt(0).toUpperCase() + key.slice(1);
-        output += `${label}: ${data[key]}\n`;
-      }
+  const gameBoard = document.getElementById("gameBoard");
+  const movesEl = document.getElementById("moves");
+  const matchesEl = document.getElementById("matches");
+  const winMessage = document.getElementById("winMessage");
+  const difficultySelect = document.getElementById("difficulty");
+  const startBtn = document.getElementById("startBtn");
+  const restartBtn = document.getElementById("restartBtn");
+
+  difficultySelect.addEventListener("change", (e) => {
+    difficulty = e.target.value;
+    resetGame();
+  });
+
+  startBtn.addEventListener("click", resetGame);
+  restartBtn.addEventListener("click", resetGame);
+
+  function resetGame() {
+    moves = 0;
+    matches = 0;
+    flippedCards = [];
+    lockBoard = false;
+    movesEl.textContent = moves;
+    matchesEl.textContent = matches;
+    winMessage.textContent = "";
+    generateBoard();
+  }
+
+  function generateBoard() {
+    gameBoard.innerHTML = "";
+    let pairCount = difficulty === "easy" ? 6 : 12;
+    let selectedEmojis = [];
+    while(selectedEmojis.length < pairCount) {
+      selectedEmojis.push(emojis[selectedEmojis.length % emojis.length]);
+    }
+    let cards = [...selectedEmojis, ...selectedEmojis];
+    cards.sort(() => Math.random() - 0.5);
+
+    cards.forEach(emoji => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.emoji = emoji;
+      card.innerHTML = `<div class="card-front">?</div><div class="card-back">${emoji}</div>`;
+      card.addEventListener("click", flipCard);
+      gameBoard.appendChild(card);
     });
 
-    const avg = ((data.rating1 + data.rating2 + data.rating3) / 3).toFixed(1);
+    gameBoard.style.gridTemplateColumns = difficulty === "easy" ? "repeat(4, 1fr)" : "repeat(6, 1fr)";
+  }
 
-    let color;
-    if (avg >= 0 && avg < 4) color = "red";
-    if (avg >= 4 && avg < 7) color = "orange";
-    if (avg >= 7 && avg <= 10) color = "green";
+  function flipCard(e) {
+    if(lockBoard) return;
+    const card = e.currentTarget;
+    if(flippedCards.includes(card) || card.classList.contains("matched")) return;
 
-    output += `${data.name} ${data.surname}: `;
-    results.textContent = output;
-    results.innerHTML += `<span id="ratingAvg" style="color:${color}; font-weight:bold;">${avg}</span>`;
+    card.classList.add("flipped");
+    flippedCards.push(card);
 
-    showPopup("Form submitted successfully!");
-  });
+    if(flippedCards.length === 2) {
+      moves++;
+      movesEl.textContent = moves;
+      checkMatch();
+    }
+  }
+
+  function checkMatch() {
+    const [card1, card2] = flippedCards;
+    if(card1.dataset.emoji === card2.dataset.emoji) {
+      card1.classList.add("matched");
+      card2.classList.add("matched");
+      matches++;
+      matchesEl.textContent = matches;
+      flippedCards = [];
+      if(matches === (difficulty === "easy" ? 6 : 12)) {
+        winMessage.textContent = "🎉 You won!";
+      }
+    } else {
+      lockBoard = true;
+      setTimeout(() => {
+        card1.classList.remove("flipped");
+        card2.classList.remove("flipped");
+        flippedCards = [];
+        lockBoard = false;
+      }, 1000);
+    }
+  }
+
+  resetGame(); // initialize board on page load
 });
-
-function showPopup(msg) {
-  const p = document.createElement("div");
-  p.className = "custom-popup";
-  p.textContent = msg;
-  document.body.appendChild(p);
-
-  setTimeout(() => p.classList.add("show"), 50);
-  setTimeout(() => {
-    p.classList.remove("show");
-    setTimeout(() => p.remove(), 300);
-  }, 3000);
-}
