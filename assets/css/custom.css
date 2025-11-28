@@ -1,86 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* -------- SMART THERMOMETER -------- */
+.thermometer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
 
-  // -------- CONTACT FORM --------
-  const form = document.getElementById("contactForm");
-  const results = document.getElementById("formResults");
+#tempDisplay {
+  font-weight: 700;
+  min-width: 50px;
+}
 
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+#tempResult {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
 
-      const data = {
-        name: document.getElementById("name").value,
-        surname: document.getElementById("surname").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        address: document.getElementById("address").value,
-        rating1: Number(document.getElementById("rating1").value),
-        rating2: Number(document.getElementById("rating2").value),
-        rating3: Number(document.getElementById("rating3").value)
-      };
+/* -------- RATING SLIDERS -------- */
+.form-group span {
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
 
-      console.log("✅ Form Data:", data);
-
-      let output = "";
-      Object.keys(data).forEach(key => {
-        if (!key.includes("rating")) {
-          const label = key === "phone" ? "Phone number" : key.charAt(0).toUpperCase() + key.slice(1);
-          output += `${label}: ${data[key]}\n`;
-        }
-      });
-
-      const avg = ((data.rating1 + data.rating2 + data.rating3) / 3).toFixed(1);
-
-      let color;
-      if (avg < 4) color = "red";
-      else if (avg < 7) color = "orange";
-      else color = "green";
-
-      output += `${data.name} ${data.surname}: `;
-      results.textContent = output;
-      results.innerHTML += `<span style="color:${color}; font-weight:bold;">${avg}</span>`;
-
-      showPopup("Form submitted successfully!");
-    });
-  }
-
-  function showPopup(msg) {
-    const p = document.createElement("div");
-    p.className = "custom-popup";
-    p.textContent = msg;
-    document.body.appendChild(p);
-
-    setTimeout(() => p.classList.add("show"), 50);
-    setTimeout(() => {
-      p.classList.remove("show");
-      setTimeout(() => p.remove(), 300);
-    }, 3000);
-  }
-
-  // -------- SMART THERMOMETER --------
-  const tempSlider = document.getElementById("tempSlider");
-  const tempDisplay = document.getElementById("tempDisplay");
-  const tempResult = document.getElementById("tempResult");
-
-  function updateTemp() {
-    const val = Number(tempSlider.value);
-    tempDisplay.textContent = `${val}°C`;
-
-    let status = "";
-    let emoji = "";
-    if(val < 0){ status="Freezing"; emoji="❄️"; }
-    else if(val < 15){ status="Cold"; emoji="🥶"; }
-    else if(val < 25){ status="Comfortable"; emoji="😌"; }
-    else if(val < 35){ status="Warm"; emoji="🌞"; }
-    else{ status="Hot"; emoji="🔥"; }
-
-    tempResult.textContent = `${status} ${emoji}`;
-    console.log({temperature: val, status, emoji});
-  }
-
-  tempSlider.addEventListener("input", updateTemp);
-  updateTemp();
-
-  // -------- MEMORY GAME --------
-  const emojis = ["🐶","🐱","🦊","🐼","🐸","🐵"];
- 
+/* MEMORY GAME CSS se mantiene igual que antes */
