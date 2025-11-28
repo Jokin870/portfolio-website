@@ -1,31 +1,61 @@
-.form-group {
-  margin-bottom: 15px;
-}
+// Contact form handler
+document.addEventListener("DOMContentLoaded", () => {
+  const contactForm = document.getElementById("contactForm");
+  const resultsDiv = document.getElementById("formResults");
 
-.custom-popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #222;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-  font-family: inherit;
-  z-index: 9999;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent reload
 
-.custom-popup.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+    // Collect values
+    const formData = {
+      name: document.getElementById("name").value,
+      surname: document.getElementById("surname").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      address: document.getElementById("address").value,
+      rating1: Number(document.getElementById("rating1").value),
+      rating2: Number(document.getElementById("rating2").value),
+      rating3: Number(document.getElementById("rating3").value)
+    };
 
-.form-results {
-  margin-top: 20px;
-  line-height: 1.6;
-  font-family: inherit;
-  padding-top: 10px;
+    // Print to console
+    console.log(formData);
+
+    // Display results below form
+    resultsDiv.innerHTML = `
+Name: ${formData.name}<br>
+Surname: ${formData.surname}<br>
+Email: ${formData.email}<br>
+Phone number: ${formData.phone}<br>
+Address: ${formData.address}<br>
+`;
+
+    // Calculate average rating
+    const avg = ((formData.rating1 + formData.rating2 + formData.rating3) / 3).toFixed(1);
+
+    // Determine color
+    let color = "red";
+    if (avg >= 4 && avg < 7) color = "orange";
+    if (avg >= 7) color = "green";
+
+    // Display average with color + format
+    resultsDiv.innerHTML += `<strong>${formData.name} ${formData.surname}: <span id="ratingAvg" style="color:${color}">${avg}</span></strong>`;
+
+    // Show success popup
+    showPopup("Form submitted successfully!");
+  });
+});
+
+// Success popup function
+function showPopup(message) {
+  const popup = document.createElement("div");
+  popup.className = "custom-popup";
+  popup.textContent = message;
+  document.body.appendChild(popup);
+
+  setTimeout(() => popup.classList.add("show"), 50);
+  setTimeout(() => {
+    popup.classList.remove("show");
+    setTimeout(() => popup.remove(), 300);
+  }, 3000);
 }
