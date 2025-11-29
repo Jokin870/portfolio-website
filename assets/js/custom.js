@@ -1,108 +1,51 @@
-// assets/js/custom.js
 document.addEventListener("DOMContentLoaded", () => {
-  /* =========================
-     CONTACT FORM (ratings)
-     ========================= */
-  const form = document.getElementById("contactForm");
-  const results = document.getElementById("formResults");
 
-  // rating sliders + displays (if present)
-  const ratingPairs = [
-    { slider: document.getElementById("rating1"), disp: document.getElementById("rating1Val") },
-    { slider: document.getElementById("rating2"), disp: document.getElementById("rating2Val") },
-    { slider: document.getElementById("rating3"), disp: document.getElementById("rating3Val") }
-  ];
-
-  ratingPairs.forEach(pair => {
-    if (pair.slider && pair.disp) {
-      // initialize display
-      pair.disp.textContent = pair.slider.value;
-      pair.slider.addEventListener("input", () => pair.disp.textContent = pair.slider.value);
-    }
-  });
-
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const data = {
-        name: document.getElementById("name").value,
-        surname: document.getElementById("surname").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        address: document.getElementById("address").value,
-        rating1: Number((document.getElementById("rating1") || {value:0}).value),
-        rating2: Number((document.getElementById("rating2") || {value:0}).value),
-        rating3: Number((document.getElementById("rating3") || {value:0}).value)
-      };
-
-      console.log("Form Data:", data);
-
-      // build output (non-rating fields)
-      let outputLines = [];
-      ["name","surname","email","phone","address"].forEach(k => {
-        let label = k === "phone" ? "Phone number" : k.charAt(0).toUpperCase() + k.slice(1);
-        outputLines.push(`${label}: ${data[k]}`);
-      });
-
-      const avg = ((data.rating1 + data.rating2 + data.rating3) / 3).toFixed(1);
-      let color = avg < 4 ? "red" : (avg < 7 ? "orange" : "green");
-      outputLines.push(`${data.name} ${data.surname}: ` + `<span style="color:${color}; font-weight:700">${avg}</span>`);
-
-      if (results) {
-        results.innerHTML = outputLines.join("<br>");
-        // Scroll into view lightly
-        results.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-
-      showPopup("Form submitted successfully!");
-    });
-  }
-
-  function showPopup(msg) {
-    const p = document.createElement("div");
-    p.className = "custom-popup";
-    p.textContent = msg;
-    document.body.appendChild(p);
-    // force reflow then show
-    requestAnimationFrame(() => p.classList.add("show"));
-    setTimeout(() => p.classList.remove("show"), 2800);
-    setTimeout(() => p.remove(), 3100);
-  }
-
-  /* =========================
-     SMART THERMOMETER
-     ========================= */
+  /* ==========================
+     SMART THERMOMETER 🌡️
+     ========================== */
   const tempSlider = document.getElementById("tempSlider");
   const tempDisplay = document.getElementById("tempDisplay");
   const tempResult = document.getElementById("tempResult");
 
-  function updateTempUI() {
-    if (!tempSlider || !tempDisplay || !tempResult) return;
-    const val = Number(tempSlider.value);
-    tempDisplay.textContent = `${val}°C`;
+  if (tempSlider && tempDisplay && tempResult) {
+    const emojis = [
+      { min: -999, max: 0, emoji: "❄️" },
+      { min: 1, max: 15, emoji: "🥶" },
+      { min: 16, max: 25, emoji: "😌" },
+      { min: 26, max: 35, emoji: "🌞" },
+      { min: 36, max: 999, emoji: "🔥" }
+    ];
 
-    let status = "";
-    let color = "";
-    if (val < 0) { status = "Freezing ❄️"; color = "#2b7cff"; }
-    else if (val < 15) { status = "Cold 🥶"; color = "#4aa3ff"; }
-    else if (val < 25) { status = "Comfortable 😌"; color = "#ffb347"; }
-    else if (val < 35) { status = "Warm 🌞"; color = "#ff8c42"; }
-    else { status = "Hot 🔥"; color = "#ff4c4c"; }
+    const colors = [
+      { min: -999, max: 0, color: "#2b7cff" },
+      { min: 1, max: 15, color: "#4aa3ff" },
+      { min: 16, max: 25, color: "#ffb347" },
+      { min: 26, max: 35, color: "#ff8c42" },
+      { min: 36, max: 999, color: "#ff4c4c" }
+    ];
 
-    tempResult.textContent = status;
-    tempResult.style.color = color;
+    function updateThermometer() {
+      const t = Number(tempSlider.value);
+      tempDisplay.textContent = `${t}°C`;
+
+      const e = emojis.find(o => t >= o.min && t <= o.max);
+      tempResult.textContent = e?.emoji || "😌";
+      tempResult.style.transform = "scale(1.2)";
+      setTimeout(() => tempResult.style.transform = "scale(1)", 120);
+
+      const c = colors.find(o => t >= o.min && t <= o.max);
+      tempDisplay.style.color = c?.color || "#222";
+      tempDisplay.style.fontWeight = "700";
+    }
+
+    tempSlider.addEventListener("input", updateThermometer);
+    updateThermometer();
   }
 
-  if (tempSlider) {
-    updateTempUI(); // initial
-    tempSlider.addEventListener("input", updateTempUI);
-  }
+  /* ==========================
+     MEMORY GAME 🧠🎴 (fixed)
+     ========================== */
 
-  /* =========================
-     MEMORY GAME (fixed & robust)
-     ========================= */
-
-  // DOM references for the game (safe)
   const difficultySelect = document.getElementById("difficulty");
   const startBtn = document.getElementById("startBtn");
   const restartBtn = document.getElementById("restartBtn");
@@ -111,151 +54,132 @@ document.addEventListener("DOMContentLoaded", () => {
   const matchesEl = document.getElementById("matches");
   const winMessage = document.getElementById("winMessage");
 
-  // If any required game element is missing, skip game init (avoid errors)
-  const gameElementsPresent = gameBoard && movesEl && matchesEl && winMessage && difficultySelect && startBtn && restartBtn;
-  if (!gameElementsPresent) {
-    // no game or missing elements — don't crash
-    console.warn("Memory Game: missing DOM elements, skipping initialization.");
+  if (!gameBoard || !movesEl || !matchesEl || !winMessage || !difficultySelect || !startBtn || !restartBtn) {
+    console.warn("Memory Game: missing DOM, cannot init.");
     return;
   }
 
-  // data source (6 unique items)
-  const cardEmojis = ["🐶","🐱","🦊","🐼","🐸","🐵"];
-
-  // game state
-  let pairCount = 6; // default pairs (easy)
-  let moves = 0;
-  let matches = 0;
+  const dataset = ["🐶","🍎","⚽","🚗","🎧","🎮"];
+  let deck = [];
   let firstCard = null;
   let secondCard = null;
   let boardLocked = false;
-  let deck = []; // array of emojis (pairs)
+  let moves = 0;
+  let matches = 0;
+  let pairTarget = 6;
 
-  // helper utilities
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+  function shuffle(a) {
+    for (let i=a.length-1; i>0; i--) {
+      const j=Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
     }
-    return array;
+    return a;
   }
 
   function buildDeck(pairs) {
-    const selected = [];
-    for (let i = 0; i < pairs; i++) {
-      selected.push(cardEmojis[i % cardEmojis.length]);
-    }
-    const d = [...selected, ...selected];
-    return shuffle(d);
+    const items=[];
+    for (let i=0;i<pairs;i++) items.push(dataset[i%dataset.length]);
+    return shuffle([...items, ...items]);
   }
 
-  function renderBoard() {
-    // clear board
-    gameBoard.innerHTML = "";
-    // create card elements
+  function renderBoard(pairs) {
+    firstCard=null;
+    secondCard=null;
+    boardLocked=false;
+    gameBoard.innerHTML="";
+    deck=buildDeck(pairs);
+    resetStats();
+
     deck.forEach((emoji, idx) => {
-      const card = document.createElement("button"); // button so it's keyboard focusable
-      card.className = "card";
-      card.type = "button";
-      card.dataset.emoji = emoji;
-      card.dataset.index = idx;
-      card.setAttribute("aria-label", "Memory card");
-      card.innerHTML = `
-        <div class="card-front">?</div>
-        <div class="card-back">${emoji}</div>
-      `;
-      // attach handler
-      card.addEventListener("click", handleCardClick);
-      // append
+      const card=document.createElement("button");
+      card.className="card";
+      card.type="button";
+      card.dataset.emoji=emoji;
+      card.dataset.index=idx;
+      card.innerHTML=`<span>${emoji}</span>`;
+      card.addEventListener("click", flipCard);
       gameBoard.appendChild(card);
     });
 
-    // set grid columns depending on difficulty
-    gameBoard.style.gridTemplateColumns = pairCount === 6 ? "repeat(4, 1fr)" : "repeat(6, 1fr)";
+    gameBoard.style.gridTemplateColumns = pairs === 12 ? "repeat(6, 1fr)" : "repeat(4, 1fr)";
   }
 
-  function resetGameState() {
-    moves = 0;
-    matches = 0;
-    firstCard = null;
-    secondCard = null;
-    boardLocked = false;
-    if (movesEl) movesEl.textContent = moves;
-    if (matchesEl) matchesEl.textContent = matches;
-    if (winMessage) winMessage.textContent = "";
+  function resetStats() {
+    moves=0;
+    matches=0;
+    pairTarget = difficultySelect.value === "hard" ? 12 : 6;
+    pairTarget=pairTarget/2;
   }
 
-  function startNewGame() {
-    // set pairCount from difficulty select
-    const diff = difficultySelect.value;
-    pairCount = diff === "hard" ? 12 : 6;
-
-    // build deck and render
-    deck = buildDeck(pairCount);
-    resetGameState();
-    renderBoard();
+  function resetStats() {
+    moves=0;
+    matches=0;
+    if(movesEl)movesEl.textContent=moves;
+    if(matchesEl)matchesEl.textContent=matches;
+    winMessage.textContent="";
   }
 
-  function handleCardClick(e) {
-    if (boardLocked) return;
-    const clicked = e.currentTarget;
-    // ignore clicks on already matched cards
-    if (clicked.classList.contains("matched")) return;
-    // ignore clicking same card twice
-    if (firstCard && clicked === firstCard) return;
+  startBtn.addEventListener("click", ()=>renderBoard(tempDifficulty === "hard" ? 12 : 6));
+  restartBtn.addEventListener("click", ()=>renderBoard(tempDifficulty === "hard" ? 12 : 6));
+  difficultySelect.addEventListener("change", ()=>renderBoard(tempDifficulty === "hard" ? 12 : 6));
 
-    // flip
-    clicked.classList.add("flipped");
+  function flipCard(e) {
+    const card=e.currentTarget;
+    if(boardLocked) return;
+    if(card.classList.contains("matched")) return;
+    if(firstCard && card===firstCard) return;
 
-    if (!firstCard) {
-      firstCard = clicked;
+    card.classList.add("flipped");
+
+    if(!firstCard) {
+      firstCard=card;
       return;
     }
 
-    // second card
-    secondCard = clicked;
-    // increment moves
+    secondCard=card;
+    boardLocked=true;
     moves++;
-    if (movesEl) movesEl.textContent = moves;
+    if(movesEl) movesEl.textContent=moves;
 
-    // check match
-    const isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
-    if (isMatch) {
-      // mark matched
+    const a = firstCard.dataset.emoji;
+    const b = secondCard.dataset.emoji;
+
+    if(a===b) {
       firstCard.classList.add("matched");
       secondCard.classList.add("matched");
       matches++;
-      if (matchesEl) matchesEl.textContent = matches;
-      // clear selection
-      firstCard = null;
-      secondCard = null;
+      if(matchesEl) matchesEl.textContent=matches;
+      firstCard=null;
+      secondCard=null;
+      boardLocked=false;
 
-      // check win
-      if (matches === pairCount) {
-        // small delay to let last flip show
-        setTimeout(() => {
-          if (winMessage) winMessage.textContent = "🎉 You won!";
-          showPopup("You completed the Memory Game!");
-        }, 300);
+      if(matches=== (difficultySelect.value==="hard"?6:6)) {
+        winMessage.textContent="🎉 You won!";
+        showPopup("🏆 Congrats, you matched them all!");
       }
     } else {
-      // not match: flip back after delay
-      boardLocked = true;
-      setTimeout(() => {
-        if (firstCard) firstCard.classList.remove("flipped");
-        if (secondCard) secondCard.classList.remove("flipped");
-        firstCard = null;
-        secondCard = null;
-        boardLocked = false;
+      setTimeout(()=>{
+        firstCard?.classList.remove("flipped");
+        secondCard?.classList.remove("flipped");
+        firstCard=null;
+        secondCard=null;
+        boardLocked=false;
+        boardLocked=false;
       }, 1000);
     }
   }
 
-  // Attach control listeners
-  difficultySelect.addEventListener("change", startNewGame);
-  startBtn.addEventListener("click", startNewGame);
-  restartBtn.addEventListener("click", startNewGame);
+  function showPopup(msg) {
+    const p=document.createElement("div");
+    p.className="custom-popup";
+    p.textContent=msg;
+    document.body.appendChild(p);
+    requestAnimationFrame(()=>p.classList.add("show"));
+    setTimeout(()=>p.classList.remove("show"),2800);
+    setTimeout(()=>p.remove(),3100);
+  }
 
-  // init first board
-  startNewGame();
+  // Inicia en Easy
+  renderBoard(6);
 });
+
