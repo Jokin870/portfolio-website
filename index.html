@@ -3,128 +3,153 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jokin Barandiaran – Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jokin Barandiaran – Portfolio</title>
 
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/custom.css?v=7">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/custom.css?v=10">
 </head>
 
 <body class="loading">
 
-    <div id="loader"><div class="spinner"></div></div>
+  <!-- loader -->
+  <div id="loader"><div class="spinner"></div></div>
 
-    <div id="page-content">
+  <div id="page-content" class="hidden">
 
-        <header>
-            <nav id="navbar">
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#resume">Resume</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#thermometer">Smart Thermometer</a></li>
-                    <li><a href="#memory">Memory Game</a></li>
-                </ul>
-            </nav>
-        </header>
+    <header>
+      <nav id="navbar">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#resume">Resume</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#thermometer">Smart Thermometer</a></li>
+          <li><a href="#memory-game">Memory Game</a></li>
+        </ul>
+      </nav>
+    </header>
 
-        <main>
+    <main>
 
-            <section id="about" class="fade-in">
-                <h2>About Me</h2>
-                <img src="assets/img/about-me.jpg" alt="Jokin Barandiaran" width="200">
-                <p>I enjoy creating practical UI solutions with web technologies 👨‍💻🚀</p>
-            </section>
+      <!-- ABOUT -->
+      <section id="about" class="fade-in">
+        <h2>About Me</h2>
+        <img src="assets/img/about-me.jpg" alt="Jokin Barandiaran" width="200">
+        <p>I enjoy creating practical UI solutions with web technologies 👨‍💻🚀</p>
+      </section>
 
-            <section id="resume" class="fade-in">
-                <h2>Resume</h2>
-                <div class="resume-item content-block">
-                    <h4>Bachelor's Degree in Computer Science</h4>
-                    <h5>2018 - 2022</h5>
-                </div>
-            </section>
+      <!-- RESUME -->
+      <section id="resume" class="fade-in">
+        <h2>Resume</h2>
+        <div class="resume-item content-block">
+          <h4>Bachelor's Degree in Computer Science</h4>
+          <h5>2018 - 2022</h5>
+        </div>
+      </section>
 
-            <section id="portfolio" class="fade-in">
-                <h2>Portfolio</h2>
-                <div class="portfolio-item content-block"><p>Project examples 💼✨</p></div>
-            </section>
+      <!-- PORTFOLIO -->
+      <section id="portfolio" class="fade-in">
+        <h2>Portfolio</h2>
+        <div class="portfolio-item content-block"><p>Project examples 💼✨</p></div>
+      </section>
 
-            <!-- SMART THERMOMETER -->
-            <section id="thermometer" class="fade-in">
-                <h2>Memory Game 🌡️</h2>
-                <div class="content-block">
-                    <div class="thermometer-ui">
-                        <div id="tempResult" class="temp-emoji">😌</div>
-                        <div class="slider-row">
-                            <input type="range" id="tempSlider" min="-10" max="50" value="20" step="1">
-                            <span id="tempDisplay">20°C</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <!-- CONTACT -->
+      <section id="contact" class="fade-in">
+        <h2>Contact</h2>
 
-            <!-- CONTACT FORM -->
-            <section id="contact" class="fade-in">
-                <h2>Contact ✉️</h2>
+        <form id="contactForm">
+          <div class="form-group"><input type="text" id="name" placeholder="Name" required></div>
+          <div class="form-group"><input type="text" id="surname" placeholder="Surname" required></div>
+          <div class="form-group"><input type="email" id="email" placeholder="Email" required></div>
+          <div class="form-group"><input type="tel" id="phone" placeholder="Phone number" required></div>
+          <div class="form-group"><input type="text" id="address" placeholder="Address" required></div>
 
-                <form id="contactForm">
-                    <div class="form-group"><input type="text" id="name" placeholder="Name" required></div>
-                    <div class="form-group"><input type="text" id="surname" placeholder="Surname" required></div>
-                    <div class="form-group"><input type="email" id="email" placeholder="Email" required></div>
-                    <div class="form-group"><input type="tel" id="phone" placeholder="Phone number" required></div>
-                    <div class="form-group"><input type="text" id="address" placeholder="Address" required></div>
+          <div class="form-group rating-row">
+            <label>Rating 1</label>
+            <input type="range" id="rating1" min="1" max="10" value="5">
+            <span id="rating1Val">5</span>
+          </div>
 
-                    <!-- Rating sliders showing live value -->
-                    <div class="form-group rating-row"><label>Rating 1:</label><input type="range" id="rating1" min="1" max="10" value="5"><span id="rating1Val">5</span></div>
-                    <div class="form-group rating-row"><label>Rating 2:</label><input type="range" id="rating2" min="1" max="10" value="5"><span id="rating2Val">5</span></div>
-                    <div class="form-group rating-row"><label>Rating 3:</label><input type="range" id="rating3" min="1" max="10" value="5"><span id="rating3Val">5</span></div>
+          <div class="form-group rating-row">
+            <label>Rating 2</label>
+            <input type="range" id="rating2" min="1" max="10" value="5">
+            <span id="rating2Val">5</span>
+          </div>
 
-                    <div class="form-group"><button type="submit" class="button">Submit ✅</button></div>
-                </form>
+          <div class="form-group rating-row">
+            <label>Rating 3</label>
+            <input type="range" id="rating3" min="1" max="10" value="5">
+            <span id="rating3Val">5</span>
+          </div>
 
-                <div id="formResults" class="form-results"></div>
-            </section>
+          <div class="form-group"><button type="submit" class="button">Submit</button></div>
+        </form>
 
-            <!-- MEMORY GAME -->
-            <section id="memory" class="fade-in">
-                <h2>Memory Game 🧠🎴</h2>
+        <div id="formResults" class="form-results"></div>
+      </section>
 
-                <div class="game-controls">
-                    <label>Difficulty:</label>
-                    <select id="difficulty">
-                        <option value="easy">Easy (4×3)</option>
-                        <option value="hard">Hard (6×4)</option>
-                    </select>
-                    <button id="startBtn">Start ▶️</button>
-                    <button id="restartBtn">Restart 🔄</button>
-                </div>
+      <!-- SMART THERMOMETER -->
+      <section id="thermometer" class="fade-in">
+        <h2>Smart Thermometer</h2>
 
-                <div class="stats-panel">
-                    <p>Moves: <span id="moves">0</span></p>
-                    <p>Matched Pairs: <span id="matches">0</span></p>
-                </div>
+        <div class="content-block thermometer-block">
+          <div class="thermometer-top">
+            <div id="tempEmoji" class="temp-emoji">😌</div>
+            <div id="tempDisplay" class="temp-display">20°C</div>
+          </div>
 
-                <div id="gameBoard" class="game-board"></div>
-                <div id="winMessage" class="win-message"></div>
-            </section>
+          <div class="thermometer-controls">
+            <input type="range" id="tempSlider" min="-10" max="50" value="20" step="1">
+          </div>
 
-        </main>
+          <div id="tempStatus" class="temp-status">Comfortable 😌</div>
+        </div>
+      </section>
 
-        <footer><p>© 2025 Portfolio by Jokin ✨💙</p></footer>
-    </div>
+      <!-- MEMORY GAME -->
+      <section id="memory-game" class="fade-in">
+        <h2>Memory Game</h2>
 
-    <div id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</div>
+        <div class="game-controls content-block">
+          <label for="mgDifficulty">Difficulty</label>
+          <select id="mgDifficulty">
+            <option value="easy">Easy (4×3)</option>
+            <option value="hard">Hard (6×4)</option>
+          </select>
 
-    <script>
-        window.addEventListener("load", () => {
-            document.getElementById("loader")?.remove();
-            document.body.classList.remove("loading");
-        });
-    </script>
+          <button id="mgStartBtn" class="button">Start</button>
+          <button id="mgRestartBtn" class="button">Restart</button>
+        </div>
 
-    <script src="assets/js/custom.js?v=7"></script>
+        <div class="stats-panel">
+          <p>Moves: <span id="mgMoves">0</span></p>
+          <p>Matches: <span id="mgMatches">0</span></p>
+        </div>
 
+        <div id="mgBoard" class="game-board"></div>
+
+        <div id="mgWin" class="win-message"></div>
+      </section>
+
+    </main>
+
+    <footer><p>© 2025 Portfolio by Jokin</p></footer>
+  </div>
+
+  <div id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</div>
+
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      if (loader) loader.style.display = "none";
+      const page = document.getElementById("page-content");
+      if (page) page.classList.remove("hidden");
+      document.body.classList.remove("loading");
+    });
+  </script>
+
+  <script src="assets/js/custom.js?v=11"></script>
 </body>
 </html>
