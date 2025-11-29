@@ -1,164 +1,214 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* ---------------------------
+   GENERAL TYPOGRAPHY
+---------------------------- */
+html {
+  scroll-behavior: smooth;
+}
 
-  // -------- CONTACT FORM (no tocar, sigue igual) --------
-  const form = document.getElementById("contactForm");
-  const results = document.getElementById("formResults");
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background: #fafafa;
+  margin: 0;
+}
 
-  if (form && results) {
-      form.addEventListener("submit", (e) => {
-          e.preventDefault();
+/* TITLES */
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
 
-          const data = {
-              name: document.getElementById("name").value,
-              surname: document.getElementById("surname").value,
-              email: document.getElementById("email").value,
-              phone: document.getElementById("phone").value,
-              address: document.getElementById("address").value,
-              rating1: Number(document.getElementById("rating1").value),
-              rating2: Number(document.getElementById("rating2").value),
-              rating3: Number(document.getElementById("rating3").value)
-          };
+h1 { font-size: 3rem; margin-bottom: 1rem; }
+h2 { font-size: 2rem; margin-bottom: 1rem; }
+h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
 
-          console.log("✅ Form Data:", data);
+p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
 
-          let output = "";
-          output += `Name: ${data.name}\n`;
-          output += `Surname: ${data.surname}\n`;
-          output += `Email: ${data.email}\n`;
-          output += `Phone number: ${data.phone}\n`;
-          output += `Address: ${data.address}\n`;
+/* ---------------------------
+   GLOBAL SPACING & SURFACES
+---------------------------- */
+section {
+  padding: 3rem 1.25rem;
+}
 
-          const avg = ((data.rating1 + data.rating2 + data.rating3) / 3).toFixed(1);
+.content-block {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-          let color = "red";
-          if (avg >= 4 && avg < 7) color = "orange";
-          if (avg >= 7 && avg <= 10) color = "green";
+.content-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
 
-          results.textContent = output;
-          results.innerHTML += `<br>`;
-          results.innerHTML += `${data.name} ${data.surname}: <span style="color:${color}; font-weight:bold;">${avg}</span>`;
-          showPopup("Form submitted successfully!");
-      });
-  }
+/* ---------------------------
+   LINKS & BUTTONS
+---------------------------- */
+a {
+  color: #0057ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
 
-  function showPopup(msg) {
-      const p = document.createElement("div");
-      p.className = "custom-popup";
-      p.textContent = msg;
-      document.body.appendChild(p);
+a:hover {
+  color: #003bbb;
+}
 
-      setTimeout(() => p.classList.add("show"), 50);
-      setTimeout(() => {
-          p.classList.remove("show");
-          setTimeout(() => p.remove(), 300);
-      }, 3000);
-  }
+button {
+  background: #0057ff;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
 
-  // -------- MEMORY GAME (arreglado para que funcione como antes) --------
+button:hover {
+  background: #003bbb;
+  animation: softPulse 0.6s ease;
+}
 
-  const dataset = ["🌡️","🔥","❄️","💧","⚡","☀️"];
-  let difficulty = document.getElementById("difficulty")?.value || "easy";
-  let moves = 0;
-  let matchedPairs = 0;
-  let flipped = [];
-  let lock = false;
+/* ---------------------------
+   PORTFOLIO GRID
+---------------------------- */
+.portfolio-item {
+  margin-bottom: 2rem;
+  max-width: 350px;
+}
 
-  const board = document.getElementById("gameBoard");
-  const movesSpan = document.getElementById("moves");
-  const matchesSpan = document.getElementById("matches");
-  const winDiv = document.getElementById("winMessage");
-  const diffSelect = document.getElementById("difficulty");
-  const startB = document.getElementById("startBtn");
-  const restartB = document.getElementById("restartBtn");
+.portfolio-item img:hover {
+  transform: scale(1.03);
+}
 
-  if (diffSelect) {
-    diffSelect.addEventListener("change", (e) => {
-      difficulty = e.target.value;
-      initGame();
-    });
-  }
+/* ---------------------------
+   NAVBAR & BACK TO TOP
+---------------------------- */
+nav {
+  background: #ffffffcc;
+  backdrop-filter: blur(6px);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #ddd;
+}
 
-  startB?.addEventListener("click", initGame);
-  restartB?.addEventListener("click", initGame);
+nav a:hover {
+  color: #0057ff;
+  text-decoration: underline;
+}
 
-  function initGame() {
-    moves = 0;
-    matchedPairs = 0;
-    flipped = [];
-    lock = false;
-    winDiv.textContent = "";
-    movesSpan.textContent = moves;
-    matchesSpan.textContent = matchedPairs;
-    createBoard();
-  }
+#back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #0057ff;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+}
 
-  function createBoard() {
-    board.innerHTML = "";
-    const needed = difficulty === "easy" ? 6 : 12;
-    const items = [];
+/* ---------------------------
+   MEMORY GAME STYLES
+---------------------------- */
+#memory-game {
+  padding: 2rem 1rem;
+  text-align: center;
+}
 
-    for (let i = 0; i < needed; i++) {
-      items.push(dataset[i % dataset.length]);
-    }
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
-    const cards = [...items, ...items];
-    cards.sort(() => Math.random() - 0.5);
+.stats-panel {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
 
-    cards.forEach(emoji => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.dataset.value = emoji;
-      
-      card.innerHTML = `
-        <div class="card-front">?</div>
-        <div class="card-back">${emoji}</div>
-      `;
+.game-board {
+  display: grid;
+  gap: 12px;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
 
-      card.addEventListener("click", () => flipCard(card));
-      board.appendChild(card);
-    });
+/* CARTA */
+.card {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  perspective: 600px;
+  cursor: pointer;
+}
 
-    board.style.gridTemplateColumns = difficulty === "easy" ? "repeat(4, 90px)" : "repeat(6, 90px)";
-  }
+/* ESTADOS VISUALES */
+.card.matched {
+  opacity: 0.6;
+  pointer-events: none;
+}
 
-  function flipCard(card) {
-    if (lock || flipped.includes(card) || card.classList.contains("matched")) return;
+/* CARAS */
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  backface-visibility: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.5s;
+}
 
-    card.classList.add("flipped");
-    flipped.push(card);
+.card-front {
+  background: #0057ff;
+  color: #fff;
+  transform: rotateY(0deg);
+  font-weight: 700;
+}
 
-    if (flipped.length === 2) {
-      moves++;
-      movesSpan.textContent = moves;
-      checkPair();
-    }
-  }
+.card-back {
+  background: #fff;
+  color: #222;
+  transform: rotateY(180deg);
+  border: 2px solid #ddd;
+}
 
-  function checkPair() {
-    const [a, b] = flipped;
-    if (a.dataset.value === b.dataset.value) {
-      a.classList.add("matched");
-      b.classList.add("matched");
-      matchedPairs++;
-      matchesSpan.textContent = matchedPairs;
-      flipped = [];
+/* FLIP ANIMATION */
+.card.flipped .card-front {
+  transform: rotateY(180deg);
+}
 
-      const total = difficulty === "easy" ? 6 : 12;
-      if (matchedPairs === total) {
-        winDiv.textContent = "🎉 YOU WON! 🎴🧠";
-      }
+.card.flipped .card-back {
+  transform: rotateY(0deg);
+}
 
-    } else {
-      lock = true;
-      setTimeout(() => {
-        a.classList.remove("flipped");
-        b.classList.remove("flipped");
-        flipped = [];
-        lock = false;
-      }, 1000);
-    }
-  }
-
-  // inicializar tablero al cargar
-  initGame();
-});
+/* MENSAJE WIN */
+.win-message {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-top: 1rem;
+  display: block;
+}
