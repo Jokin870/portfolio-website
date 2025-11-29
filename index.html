@@ -1,239 +1,23 @@
 <!DOCTYPE html>
-<!-- Created by: Jokin Barandiaran -->
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jokin Barandiaran – Portfolio</title>
-
-    <!-- Main stylesheet (template original) -->
-    <link rel="stylesheet" href="assets/css/main.css">
-
-    <!-- Custom stylesheet with all modifications -->
-    <link rel="stylesheet" href="assets/css/custom.css?v=6">
-</head>
-
-<body class="loading">
-
-    <!-- ===== LOADER (CSS ONLY) ===== -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- ===== PAGE WRAPPER ===== -->
-    <div id="page-content" class="hidden">
-
-        <!-- ===== HEADER ===== -->
-        <header>
-            <nav id="navbar">
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#resume">Resume</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#memory-game">Memory Game</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <!-- ===== MAIN CONTENT ===== -->
-        <main>
-
-            <!-- ABOUT -->
-            <section id="about" class="fade-in">
-                <h2>About Me</h2>
-                <img src="assets/img/about-me.jpg" alt="Jokin Barandiaran" width="200">
-                <p>
-                    I am Jokin Barandiaran, a dedicated and passionate learner in web development and digital technologies.
-                    I enjoy creating practical solutions through coding and design, constantly exploring new tools and 
-                    frameworks to enhance my skills. My goal is to develop efficient and visually appealing websites while 
-                    collaborating with teams to achieve professional excellence. I value problem-solving, creativity, and 
-                    continuous improvement in all projects I undertake.
-                </p>
-                <button class="button">Contact Me</button>
-            </section>
-
-            <!-- RESUME -->
-            <section id="resume" class="fade-in">
-                <h2>Resume</h2>
-
-                <div class="resume-item content-block">
-                    <img src="assets/img/logo-university.jpg" alt="University logo" width="100">
-                    <h4>Bachelor's Degree in Computer Science</h4>
-                    <h5>2018 - 2022</h5>
-                    <p>Studied programming, algorithms, and software engineering.</p>
-                </div>
-
-                <div class="resume-item content-block">
-                    <img src="assets/img/logo-internship.jpg" alt="Internship logo" width="100">
-                    <h4>Web Development Internship</h4>
-                    <h5>2022 - 2023</h5>
-                    <p>Worked on front-end projects using HTML, CSS, and JavaScript.</p>
-                </div>
-
-                <div class="resume-item content-block">
-                    <img src="assets/img/logo-freelance.jpg" alt="Freelance logo" width="100">
-                    <h4>Freelance Projects</h4>
-                    <h5>2023 - Present</h5>
-                    <p>Developed websites and portfolio pages for clients.</p>
-                </div>
-            </section>
-
-            <!-- PORTFOLIO -->
-            <section id="portfolio" class="fade-in">
-                <h2>Portfolio</h2>
-
-                <div class="portfolio-item content-block">
-                    <img src="assets/img/foto1.png" alt="Personal website project" width="300">
-                    <p>Project 1: Personal website showcasing skills and projects.</p>
-                    <button class="button">View Project</button>
-                </div>
-
-                <div class="portfolio-item content-block">
-                    <img src="assets/img/foto2.jpg" alt="Responsive landing page" width="300">
-                    <p>Project 2: Responsive landing page for a local business.</p>
-                    <button class="button">View Project</button>
-                </div>
-
-                <div class="portfolio-item content-block">
-                    <img src="assets/img/foto3.jpeg" alt="Freelance portfolio page" width="300">
-                    <p>Project 3: Portfolio page for freelance work.</p>
-                    <button class="button">View Project</button>
-                </div>
-            </section>
-
-            <!-- CONTACT FORM -->
-            <section id="contact" class="fade-in">
-                <h2>Contact</h2>
-
-                <form id="contactForm">
-
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" id="surname" placeholder="Surname" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="tel" id="phone" placeholder="Phone number" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" id="address" placeholder="Address" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Rating Question 1 (1–10)</label>
-                        <input type="range" id="rating1" min="1" max="10" step="1" value="5">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Rating Question 2 (1–10)</label>
-                        <input type="range" id="rating2" min="1" max="10" step="1" value="5">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Rating Question 3 (1–10)</label>
-                        <input type="range" id="rating3" min="1" max="10" step="1" value="5">
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="button">Submit</button>
-                    </div>
-
-                </form>
-
-                <div id="formResults" class="form-results"></div>
-            </section>
-
-            <!-- MEMORY GAME -->
-            <section id="memory-game" class="fade-in">
-                <h2>Memory Game</h2>
-
-                <div class="game-controls">
-                    <label for="difficulty">Select difficulty:</label>
-                    <select id="difficulty">
-                        <option value="easy">Easy (4×3)</option>
-                        <option value="hard">Hard (6×4)</option>
-                    </select>
-
-                    <button id="startBtn" class="button">Start</button>
-                    <button id="restartBtn" class="button">Restart</button>
-                </div>
-
-                <div class="stats-panel">
-                    <p>Moves: <span id="moves">0</span></p>
-                    <p>Matches: <span id="matches">0</span></p>
-                </div>
-
-                <div id="gameBoard" class="game-board"></div>
-
-                <div id="winMessage" class="win-message"></div>
-            </section>
-
-        </main>
-
-        <!-- ===== FOOTER ===== -->
-        <footer>
-            <p>© 2025 Jokin Barandiaran</p>
-        </footer>
-
-    </div>
-
-    <!-- ===== BACK TO TOP ===== -->
-    <div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'});">&#8679;</div>
-
-    <!-- ===== LOADER SCRIPT ===== -->
-    <script>
-        window.addEventListener("load", () => {
-            const loader = document.getElementById("loader");
-            const page = document.getElementById("page-content");
-
-            if (loader) loader.style.display = "none";
-            if (page) page.classList.remove("hidden");
-
-            document.body.classList.remove("loading");
-
-            const backToTop = document.getElementById("back-to-top");
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 300) backToTop.style.display = "block";
-                else backToTop.style.display = "none";
-            });
-        });
-    </script>
-
-    <!-- ===== CUSTOM JS ===== -->
-    <script src="assets/js/custom.js"></script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<!-- Created by: Jokin Barandiaran -->
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jokin Barandiaran – Portfolio</title>
 
   <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=10">
+  <link rel="stylesheet" href="assets/css/custom.css?v=12">
 </head>
 
 <body class="loading">
 
-  <!-- loader -->
+  <!-- ===== LOADER ===== -->
   <div id="loader"><div class="spinner"></div></div>
 
   <div id="page-content" class="hidden">
 
+    <!-- ===== HEADER ===== -->
     <header>
       <nav id="navbar">
         <ul>
@@ -366,7 +150,6 @@
     });
   </script>
 
-  <script src="assets/js/custom.js?v=11"></script>
+  <script src="assets/js/custom.js?v=12"></script>
 </body>
 </html>
-
