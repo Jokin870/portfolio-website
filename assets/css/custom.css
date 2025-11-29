@@ -1,26 +1,106 @@
-/* -------- SMART THERMOMETER -------- */
-.thermometer {
+/* SMART THERMOMETER SECTION */
+.thermometer-ui {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider-row {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-#tempDisplay {
+.temp-emoji {
+  font-size: 3rem;
+  transition: transform 0.3s;
+}
+
+/* CONTACT FORM RATINGS */
+.rating-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-weight: 600;
+}
+
+.rating-row span {
+  min-width: 22px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* MEMORY GAME BOARD */
+.game-board {
+  display: grid;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.card {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  background: #0057ff;
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  user-select: none;
+  transition: transform 0.25s ease;
+}
+
+.card:hover {
+  animation: softPulse 0.5s ease;
+}
+
+.card.flipped {
+  background: #fff;
+  color: #222;
+  transform: scale(1.05);
+  border: 2px solid #0057ff;
+}
+
+.card.matched {
+  opacity: 0.6;
+  background: #eee;
+  color: #222;
+  cursor: default;
+  transform: scale(1);
+  border: 2px solid #ddd;
+}
+
+.win-message {
+  font-size: 1.6rem;
   font-weight: 700;
-  min-width: 50px;
+  text-align: center;
+  margin-top: 1rem;
 }
 
-#tempResult {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 0.25rem;
+.custom-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #0057ff;
+  color: #fff;
+  padding: 0.8rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateX(15px);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-/* -------- RATING SLIDERS -------- */
-.form-group span {
-  margin-left: 0.5rem;
-  font-weight: 600;
+.custom-popup.show {
+  opacity: 1;
+  transform: translateX(0);
 }
-
-/* MEMORY GAME CSS se mantiene igual que antes */
